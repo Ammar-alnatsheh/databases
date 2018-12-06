@@ -16,9 +16,10 @@ CREATE TABLE messages (
   id integer PRIMARY KEY,
   username integer,
   roomname integer,
+   message text''
   FOREIGN KEY(username) REFERENCES users (id),
-  FOREIGN KEY(roomname) REFERENCES rooms (id),
-  message text
+  FOREIGN KEY(roomname) REFERENCES rooms (id)
+ 
 );
 
 
@@ -28,6 +29,6 @@ CREATE TABLE messages (
 
 
 /*  Execute this file from the command line by typing:
- *    mysql -u student < server/schema.sql
+ *    mysql -u root < server/schema.sql
  *  to create the database and the tables.*/
 
