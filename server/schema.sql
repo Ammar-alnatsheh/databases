@@ -4,20 +4,20 @@ USE chat;
 
 CREATE TABLE users (
   id integer PRIMARY KEY,
-  name char
+  username char
 );
 
 CREATE TABLE rooms (
   id integer PRIMARY KEY,
-  name char
+  username char
 );
 
 CREATE TABLE messages (
   id integer PRIMARY KEY,
-  user_id integer,
-  room_id integer,
-  FOREIGN KEY(user_id) REFERENCES users (id),
-  FOREIGN KEY(room_id) REFERENCES rooms (id),
+  username integer,
+  roomname integer,
+  FOREIGN KEY(username) REFERENCES users (id),
+  FOREIGN KEY(roomname) REFERENCES rooms (id),
   message text
 );
 
