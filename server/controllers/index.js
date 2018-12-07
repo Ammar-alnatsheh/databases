@@ -26,7 +26,17 @@ module.exports = {
 
     post: function (req, res) {
       //send the request to db models with post action to messages table
-
+      var username = JSON.stringify(req.query.username);
+      var roomname = JSON.stringify(req.query.roomname);
+      var message = JSON.stringify(req.query.message);
+      models.messages.post(username, roomname, message, (err, username) => {
+        if (err) {
+          throw err;
+        } else {
+          res.writeHead(201, headers);
+          res.end();
+        }
+      });
     } // a function which handles posting a message to the database
   },
 
@@ -46,7 +56,8 @@ module.exports = {
 
     post: function (req, res) {
       //send the request to db models with post action to user table
-      models.users.post(JSON.stringify(req.query.username), (err, username) => {
+      var username = JSON.stringify(req.query.username);
+      models.users.post(username, (err, username) => {
         if (err) {
           throw err;
         } else {
