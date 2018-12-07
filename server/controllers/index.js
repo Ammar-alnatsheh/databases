@@ -11,20 +11,21 @@ var headers = {
 
 module.exports = {
   messages: {
+    //send the request to db models with get action to messages table
     get: function (req, res) {
-    //   console.log(req)
-    //   //send the request to db models with get action to messages table
-    //   models.messages.get()
-    //     .then(function(records) {
-    //       res.writeHead(200, headers);
-    //       res.end(records);
-    //     });
+      models.messages.get((err, messages) => {
+        if (err) {
+          throw err;
+        } else {
+          res.writeHead(200, headers);
+          res.end(JSON.stringify(messages));
+        }
+      });
     }, // a function which handles a get request for all messages
 
 
     post: function (req, res) {
       //send the request to db models with post action to messages table
-      // models.messages.post(res);
 
     } // a function which handles posting a message to the database
   },
@@ -45,29 +46,15 @@ module.exports = {
 
     post: function (req, res) {
       //send the request to db models with post action to user table
-      // models.users.post()
-      // .then(function(user) {
-      //   res.writeHead(201, headers);
-      // });
+      models.users.post(JSON.stringify(req.query.username), (err, username) => {
+        if (err) {
+          throw err;
+        } else {
+          res.writeHead(201, headers);
+          res.end();
+        }
+      });
 
     }
   }
 };
-
-
-
-  //   get: function (req, res) {
-  //     return new Promise((resolve, reject) => {
-  //     //send the request to db models with get action to messages table 
-  //       models.messages.get()
-  //       .then(function(records) {
-  //         resolve(records)
-  //       });
-  //     });
-  //   }, // a function which handles a get request for all messages
-  //   post: function (req, res) {
-  //     //send the request to db models with post action to messages table
-  //     models.messages.post(res);
-
-  //   } // a function which handles posting a message to the database
-  // },

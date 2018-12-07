@@ -27,12 +27,13 @@ module.exports = {
         }
       });
     },
-    post: function (callback) {
-      db.query("", function(err, result) {
+
+    post: function (username, callback) {
+      db.query(`INSERT INTO users (username) values (${username})`, function(err, data) {
         if (err) {
           callback(err);
         } else {
-          callback(null, result);
+          callback(null, JSON.stringify(data));
         }
       });  
     }
