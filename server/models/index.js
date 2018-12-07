@@ -2,30 +2,59 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function (callback) {
-      db.serialize(function() {
-        db.all("SELECT * FROM messages", function(err, allRows) {
-          
-          if (err != null) {
-            console.log(err);
-            callback(err);
-          }
-          console.log(util.inspect(allRows));
-          callback(allRows);
-          db.close();
-        });
+    get: function(callback) { 
+      db.query("select users.username, rooms.roomname, messages.message from messages INNER JOIN users ON messages.user_id = users.id INNER JOIN rooms ON messages.room_id = rooms.id", (err, data) => {
+        if (err) {
+          throw err;
+        } else {
+          callback(null, data);
+        }
       });
-
     }, // a function which produces all the messages
-    post: function () {} // a function which can be used to insert a message into the database
+    post: function () {
+      
+    } // a function which can be used to insert a message into the database
   },
 
   users: {
     // Ditto as above.
-    get: function () {},
-    post: function () {}
+    get: function(callback) {
+      db.query("SELECT users.username FROM users", (err, data) => {
+        if (err) {
+          throw err;
+        } else {
+          callback(null, data);
+        }
+      });
+    },
+    post: function (callback) {
+      db.query("", function(err, result) {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null, result);
+        }
+      });  
+    }
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
